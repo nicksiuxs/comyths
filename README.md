@@ -1,3 +1,3 @@
 # Comyths
 
-This is the repository of the Comuths videogame
+This is the repository of the Comyths videogame
