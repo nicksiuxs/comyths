@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rigidbody;
+    private Animator animator;
     private float horizontal;
     private bool grounded;
 
@@ -17,12 +18,25 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");;;
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (horizontal < 0f)
+        {
+            transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+        }
+        else if (horizontal > 0f)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+
+        animator.SetBool("isRunning", horizontal != 0f);
+
         Debug.DrawRay(transform.position, Vector3.down * raySize, Color.red);
         if (Physics2D.Raycast(transform.position, Vector3.down, raySize))
         {
