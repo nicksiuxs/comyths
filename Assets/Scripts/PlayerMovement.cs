@@ -10,9 +10,10 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private bool grounded;
 
-    public float JumpForce = 250f;
-    public float Speed = 10f;
-    public float raySize = 1f;
+    public float JumpForce;
+    public float runSpeed;
+    public float walkSpeed;
+    public float raySize;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,20 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            Jump();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+        CheckGrounded();
+    }
+
+    private void Move()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
@@ -37,6 +52,19 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isRunning", horizontal != 0f);
 
+
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        rigidbody.velocity = new Vector2(horizontal * currentSpeed, rigidbody.velocity.y);
+    }
+
+    private void Jump()
+    {
+        animator.SetBool("isJumping", true);
+        rigidbody.AddForce(Vector2.up * JumpForce);
+    }
+
+    void CheckGrounded()
+    {
         Debug.DrawRay(transform.position, Vector3.down * raySize, Color.red);
         if (Physics2D.Raycast(transform.position, Vector3.down, raySize))
         {
@@ -47,21 +75,6 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            Jump();
-        }
     }
 
-    private void Jump()
-    {
-        animator.SetBool("isJumping",true);
-        rigidbody.AddForce(Vector2.up * JumpForce);
-    }
-
-    private void FixedUpdate()
-    {
-        rigidbody.velocity = new Vector2(horizontal * Speed, rigidbody.velocity.y);
-    }
 }
