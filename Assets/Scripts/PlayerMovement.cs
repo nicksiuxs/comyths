@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down * raySize, Color.red);
         if (Physics2D.Raycast(transform.position, Vector3.down, raySize))
         {
+            animator.SetBool("isJumping", false);
             grounded = true;
         }
         else
@@ -49,18 +50,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            Debug.Log("Saltando");
             Jump();
         }
     }
 
     private void Jump()
     {
+        animator.SetBool("isJumping",true);
         rigidbody.AddForce(Vector2.up * JumpForce);
     }
 
     private void FixedUpdate()
     {
-        rigidbody.velocity = new Vector2(horizontal, rigidbody.velocity.y);
+        rigidbody.velocity = new Vector2(horizontal * Speed, rigidbody.velocity.y);
     }
 }

@@ -1830,7 +1830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpForce: 250
-  Speed: 10
+  Speed: 5
   raySize: 1
 --- !u!95 &2010375450
 Animator:
