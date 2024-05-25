@@ -9,17 +9,22 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private float horizontal;
     private bool grounded;
+    private Vector3 initialPosition;
 
+    public int lives;
     public float JumpForce;
     public float runSpeed;
     public float walkSpeed;
     public float raySize;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        initialPosition = new Vector3(transform.position.x, transform.position.y, 0);
+        Debug.Log("Hola");
     }
 
     // Update is called once per frame
@@ -77,4 +82,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    public void ValidateLives()
+    {
+        ResetPlayerPosition();
+    }
+
+    public void ResetPlayerPosition()
+    {
+        transform.position = initialPosition;
+    }
 }

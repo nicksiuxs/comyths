@@ -15,4 +15,10 @@ public class UndergroundController : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("COlisiones");
+        FindObjectOfType<PlayerMovement>().SendMessage("ValidateLives");
+    }
 }
