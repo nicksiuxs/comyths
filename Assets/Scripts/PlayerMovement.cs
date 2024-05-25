@@ -23,8 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        initialPosition = new Vector3(transform.position.x, transform.position.y, 0);
-        Debug.Log("Hola");
+        SetCurrentPosition();
     }
 
     // Update is called once per frame
@@ -82,6 +81,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetCurrentPosition()
+    {
+        initialPosition = new Vector3(transform.position.x, transform.position.y, 0);
+    }
 
     public void ValidateLives()
     {
