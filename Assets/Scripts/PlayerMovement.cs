@@ -16,13 +16,20 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed;
     public float walkSpeed;
     public float raySize;
-    
+    public AudioClip jumpSound;
+    public AudioClip walkSound;
+
+    public float footstepInterval = 0.1f;
+    public bool isStepsSoundAvailable = true;
+    private float footstepTimer;
 
     // Start is called before the first frame update
     void Start()
     {
+        lives = 5;
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        footstepTimer = footstepInterval;
         SetCurrentPosition();
     }
 
@@ -43,16 +50,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+
+        footstepTimer -= Time.deltaTime;
+       
+        // Si el temporizador llega a cero, reproduce el sonido del paso
+        if (footstepTimer <= 0f && isStepsSoundAvailable && grounded)
+        {
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(walkSound);
+            footstepTimer = footstepInterval;  // Reinicia el temporizador
+        }
+
         horizontal = Input.GetAxisRaw("Horizontal");
 
         if (horizontal < 0f)
         {
             transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            isStepsSoundAvailable = true;
         }
         else if (horizontal > 0f)
         {
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            isStepsSoundAvailable = true;
         }
+        else
+        {
+            isStepsSoundAvailable = false;
+
+        }
+ 
 
         animator.SetBool("isRunning", horizontal != 0f);
 
@@ -63,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        Camera.main.GetComponent<AudioSource>().PlayOneShot(jumpSound);
         animator.SetBool("isJumping", true);
         rigidbody.AddForce(Vector2.up * JumpForce);
     }
@@ -88,7 +114,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void ValidateLives()
     {
-        ResetPlayerPosition();
+        lives -= 1;
+        if (lives == 0)
+        {
+            Debug.Log("Moriste");
+        }
+        else
+        {
+            ResetPlayerPosition();
+        }
     }
 
     public void ResetPlayerPosition()

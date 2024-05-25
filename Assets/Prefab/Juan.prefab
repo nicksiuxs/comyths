@@ -137,10 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0402cce2b3889f3499914e5588fdacbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 0
   JumpForce: 400
   runSpeed: 10
   walkSpeed: 6
   raySize: 1
+  jumpSound: {fileID: 8300000, guid: 82d5f7b7df7905f4fafc57da09af1687, type: 3}
+  walkSound: {fileID: 8300000, guid: 28f6d982dbd40ce4a89dfd733dd0b9dc, type: 3}
 --- !u!95 &4460132355608589891
 Animator:
   serializedVersion: 4
