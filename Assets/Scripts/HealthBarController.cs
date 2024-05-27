@@ -8,11 +8,6 @@ public class HealthBarController : MonoBehaviour
 {
     private Slider healthSlider;
 
-    private void Start()
-    {
-        healthSlider = GetComponent<Slider>();
-    }
-
     public void ChangeMaximumLife(int maximumLife)
     {
         healthSlider.maxValue = maximumLife;
@@ -25,6 +20,7 @@ public class HealthBarController : MonoBehaviour
 
     public void InitializeHealthBar(int initialLife)
     {
+        healthSlider = GetComponent<Slider>();
         ChangeMaximumLife(initialLife);
         ChangeActualLife(initialLife);
     }
