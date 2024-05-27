@@ -8,13 +8,9 @@ public class FragmentsController : MonoBehaviour
     public GameObject text;
     private TextMeshProUGUI textMeshPro;
 
-    private void Start()
-    {
-        textMeshPro = text.GetComponent<TextMeshProUGUI>();
-    }
-
     public void SetFragmentCounter(int counter)
     {
+        textMeshPro = text.GetComponent<TextMeshProUGUI>();
         textMeshPro.text = "x " + counter.ToString();
     }
 }

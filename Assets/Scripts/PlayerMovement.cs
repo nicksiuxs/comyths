@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         vida = vidaMaxima;
         fragments = 0;
+        SetFragments(fragments);
         healthBarController.InitializeHealthBar(vida);
         lives = 5;
         rigidbody = GetComponent<Rigidbody2D>();
@@ -125,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ValidateLives()
     {
-        lives --;
+        lives--;
         LifesController lifesScript = lifesController.GetComponent<LifesController>();
         lifesScript.SetLivesCounter(lives);
         if (lives == 0)
@@ -138,6 +140,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetFragments(int fragments)
+    {
+        FragmentsController fragmentScript = fragmentController.GetComponent<FragmentsController>();
+        fragmentScript.SetFragmentCounter(fragments);
+    }
+
     public void ResetPlayerPosition()
     {
         transform.position = initialPosition;
@@ -145,10 +153,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void GetFragment()
     {
-        Debug.Log("oliee");
-        fragments--;
-        FragmentsController fragmentScript = fragmentController.GetComponent<FragmentsController>();
-        fragmentScript.SetFragmentCounter(fragments);
+        fragments++;
+        if (fragments >= 5)
+        {
+            SceneManager.LoadSceneAsync("Final");
+        }
+        else
+        {
+            SetFragments(fragments);
+        }
     }
 
     public void HaveDamage()

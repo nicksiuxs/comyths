@@ -8,6 +8,16 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadSceneAsync("Level_1");
     }
 
+    public void PlayIntroduction()
+    {
+        SceneManager.LoadSceneAsync("Introduction");
+    }
+
+    public void PlayFinal()
+    {
+        SceneManager.LoadSceneAsync("Final");
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR

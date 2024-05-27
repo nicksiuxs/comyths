@@ -6,10 +6,11 @@ public class FragmentController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Entre");
         if (other.CompareTag("Player"))
         {
-            FindObjectOfType<PlayerMovement>().SendMessage("GetFragment");
+            Destroy(gameObject);
+            PlayerMovement playerScript = other.gameObject.GetComponent<PlayerMovement>();
+            playerScript.GetFragment();
         }
     }
 }
