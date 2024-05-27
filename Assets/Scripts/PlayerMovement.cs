@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 initialPosition;
 
     public int lives;
+    public int fragments;
     public float JumpForce;
     public float runSpeed;
     public float walkSpeed;
@@ -28,11 +29,13 @@ public class PlayerMovement : MonoBehaviour
     private float footstepTimer;
 
     public GameObject lifesController;
+    public GameObject fragmentController;
 
     // Start is called before the first frame update
     void Start()
     {
         vida = vidaMaxima;
+        fragments = 0;
         healthBarController.InitializeHealthBar(vida);
         lives = 5;
         rigidbody = GetComponent<Rigidbody2D>();
@@ -140,10 +143,17 @@ public class PlayerMovement : MonoBehaviour
         transform.position = initialPosition;
     }
 
+    public void GetFragment()
+    {
+        Debug.Log("oliee");
+        fragments--;
+        FragmentsController fragmentScript = fragmentController.GetComponent<FragmentsController>();
+        fragmentScript.SetFragmentCounter(fragments);
+    }
+
     public void HaveDamage()
     {
         vida--;
-        Debug.Log("HaveDamege >>" + vida);
         healthBarController.ChangeActualLife(vida);
         if (vida <= 0)
         {
