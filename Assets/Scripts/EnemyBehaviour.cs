@@ -36,8 +36,17 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement playeScript = player.GetComponent<PlayerMovement>();
+            playeScript.HaveDamage();
+        }
+    }
+
     private void DetectPlayer()
     {
-        Debug.Log("Detectando jugaddor");
+        // Debug.Log("Detectando jugaddor");
     }
 }

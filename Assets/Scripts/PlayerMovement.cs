@@ -19,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip walkSound;
 
+    [SerializeField] private int vida;
+    [SerializeField] private int vidaMaxima;
+    [SerializeField] private HealthBarController healthBarController;
+
     public float footstepInterval = 0.1f;
     public bool isStepsSoundAvailable = true;
     private float footstepTimer;
@@ -26,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vida = vidaMaxima;
+        healthBarController.InitializeHealthBar(vida);
         lives = 5;
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -52,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         footstepTimer -= Time.deltaTime;
-       
+
         // Si el temporizador llega a cero, reproduce el sonido del paso
         if (footstepTimer <= 0f && isStepsSoundAvailable && grounded)
         {
@@ -77,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             isStepsSoundAvailable = false;
 
         }
- 
+
 
         animator.SetBool("isRunning", horizontal != 0f);
 
@@ -128,5 +134,15 @@ public class PlayerMovement : MonoBehaviour
     public void ResetPlayerPosition()
     {
         transform.position = initialPosition;
+    }
+
+    public void HaveDamage()
+    {
+        vida--;
+        healthBarController.ChangeActualLife(vida);
+        if (vida <= 0)
+        {
+            lives -= 1;
+        }
     }
 }
