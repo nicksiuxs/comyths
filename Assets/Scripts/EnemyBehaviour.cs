@@ -42,6 +42,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             PlayerMovement playeScript = player.GetComponent<PlayerMovement>();
             playeScript.HaveDamage();
+            Destroy(gameObject);
         }
     }
 

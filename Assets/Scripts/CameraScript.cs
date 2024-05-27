@@ -11,6 +11,13 @@ public class CameraScript : MonoBehaviour
     {
         Vector3 position = transform.position;
         position.x = player.transform.position.x;
+        float diferenceY = player.transform.position.y - transform.position.y;
+
+        if (diferenceY > 3f || diferenceY < 0f)
+        {
+            position.y = player.transform.position.y;
+        }
+
         transform.position = position;
     }
 }

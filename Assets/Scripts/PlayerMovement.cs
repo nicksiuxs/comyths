@@ -143,10 +143,15 @@ public class PlayerMovement : MonoBehaviour
     public void HaveDamage()
     {
         vida--;
+        Debug.Log("HaveDamege >>" + vida);
         healthBarController.ChangeActualLife(vida);
         if (vida <= 0)
         {
             lives -= 1;
+            LifesController lifesScript = lifesController.GetComponent<LifesController>();
+            lifesScript.SetLivesCounter(lives);
+            vida = vidaMaxima;
+            healthBarController.InitializeHealthBar(vida);
         }
     }
 
