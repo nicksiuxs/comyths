@@ -20,7 +20,6 @@ public class HealthBarController : MonoBehaviour
 
     public void ChangeActualLife(int actualLife)
     {
-        Debug.Log("ChangeActualLife>>> " + actualLife);
         healthSlider.value = actualLife;
     }
 

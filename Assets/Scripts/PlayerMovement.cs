@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isStepsSoundAvailable = true;
     private float footstepTimer;
 
+    public GameObject lifesController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +122,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void ValidateLives()
     {
-        lives -= 1;
+        lives --;
+        LifesController lifesScript = lifesController.GetComponent<LifesController>();
+        lifesScript.SetLivesCounter(lives);
         if (lives == 0)
         {
             Debug.Log("Moriste");
@@ -144,5 +148,10 @@ public class PlayerMovement : MonoBehaviour
         {
             lives -= 1;
         }
+    }
+
+    public int GetLives()
+    {
+        return lives;
     }
 }
